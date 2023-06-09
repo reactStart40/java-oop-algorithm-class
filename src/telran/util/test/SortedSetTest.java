@@ -4,13 +4,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.NoSuchElementException;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import telran.util.Set;
 import telran.util.SortedSet;
 
 public abstract class SortedSetTest extends SetTest {
-
+	SortedSet<Integer> sortedSet;
+	@BeforeEach
+	@Override
+	void setUp() {
+		super.setUp();
+		sortedSet = (SortedSet<Integer>) set;
+	}
 	@Override
 	protected Integer[] getActual(Integer[] array, int size) {
 		//for iterating in the sorted order no need an additional sorting
@@ -18,7 +25,6 @@ public abstract class SortedSetTest extends SetTest {
 	}
 	@Test
 	void firstTest() {
-		SortedSet<Integer> sortedSet = (SortedSet<Integer>)set;
 		
 		assertEquals(-20, sortedSet.first());
 		sortedSet.clear();
@@ -26,7 +32,6 @@ public abstract class SortedSetTest extends SetTest {
 	}
 	@Test
 	void lastTest() {
-		SortedSet<Integer> sortedSet = (SortedSet<Integer>)set;
 		assertEquals(100, sortedSet.last());
 		sortedSet.clear();
 		assertThrowsExactly(NoSuchElementException.class, ()->sortedSet.first());
@@ -34,7 +39,6 @@ public abstract class SortedSetTest extends SetTest {
 	@Test
 	void ceilingTest() {
 		//{ 10, -20, 7, 50, 100, 30 };
-		SortedSet<Integer> sortedSet = (SortedSet<Integer>)set;
 		runTestForExisted(sortedSet, true);
 		assertEquals(50, sortedSet.ceiling(35));
 		assertEquals(-20, sortedSet.ceiling(-40));
@@ -47,7 +51,6 @@ public abstract class SortedSetTest extends SetTest {
 	}
 	@Test
 	void floorTest() {
-		SortedSet<Integer> sortedSet = (SortedSet<Integer>)set;
 		runTestForExisted(sortedSet, false);
 		assertEquals(50, sortedSet.floor(55));
 		assertEquals(100, sortedSet.floor(101));

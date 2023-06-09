@@ -18,7 +18,8 @@ import telran.util.Collection;
 import telran.util.List;
 
 public abstract class CollectionTest {
-
+//move tests of interface collection methods (5 methods) from ListTest
+//	to here
 	protected Integer[] numbers = { 10, -20, 7, 50, 100, 30 };
 	protected Collection<Integer> collection;
 	protected static final int BIG_LENGTH = 100000;
@@ -142,11 +143,23 @@ public abstract class CollectionTest {
 	void clearPerformance() {
 		Collection<Integer> bigCollection = getCollection();
 		Random gen = new Random();
-		for(int i = 0; i < 1000000; i++) {
-			bigCollection.add(gen.nextInt());
-		}
+		int [] array = getRandomArray(1_000_000);
+		fillCollection(bigCollection, array);
 		bigCollection.clear();
 		assertEquals(0, bigCollection.size());
+	}
+	protected int[] getRandomArray(int length) {
+		Random gen = new Random();
+		int [] res = new int[length];
+		for(int i = 0; i < length; i++) {
+			res[i] = gen.nextInt();
+		}
+		return res;
+	}
+	protected void fillCollection(Collection<Integer> collection, int[] array) {
+		for(int num: array) {
+			collection.add(num);
+		}
 	}
 	protected void runTest(Integer[] expected) {
 		Integer [] actual = collection.toArray(new Integer[0]);
