@@ -75,12 +75,12 @@ void setUp() {
 		    System.arraycopy(reorderedArray, 0, array, 0, length);
 		}
 
-		private void balanceOrderRecursive(int[] source, int[] destination, int start, int end, int index) {
-		    if (start <= end) {
-		        int mid = (start + end) / 2;
+		private void balanceOrderRecursive(int[] source, int[] destination, int left, int right, int index) {
+		    if (left <= right) {
+		        int mid = (left + right) / 2;
 		        destination[index] = source[mid];
-		        balanceOrderRecursive(source, destination, start, mid - 1, 2 * index + 1);
-		        balanceOrderRecursive(source, destination, mid + 1, end, 2 * index + 2);
+		        balanceOrderRecursive(source, destination, left, mid - 1, 2 * index + 1);
+		        balanceOrderRecursive(source, destination, mid + 1, right, 2 * index + 2);
 		    }
 		}
 
